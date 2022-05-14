@@ -140,3 +140,6 @@ dmypy.json
 
 # Mac useless file
 .DS_*
+
+# Environement
+env
