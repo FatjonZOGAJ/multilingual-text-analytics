@@ -3,17 +3,17 @@ import requests, uuid, json, os
 endpoint = os.environ["AZURE_TRANSLATION_ENDPOINT"]
 key = os.environ["AZURE_TRANSLATION_KEY"]
 
-path = '/translate'
-constructed_url = endpoint + path
-
-headers = {
-    'Ocp-Apim-Subscription-Key': key,
-    'Ocp-Apim-Subscription-Region': "westeurope",
-    'Content-type': 'application/json',
-    'X-ClientTraceId': str(uuid.uuid4())
-}
-
 def translate_en_to_de(data):
+
+    path = '/translate'
+    constructed_url = endpoint + path
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': "westeurope",
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
 
     params_to_de = {
         'api-version': '3.0',
@@ -23,7 +23,7 @@ def translate_en_to_de(data):
 
     body_to_de = [{
     'text': data
-}]
+    }]
 
     request = requests.post(constructed_url, params=params_to_de, headers=headers, json=body_to_de)
     response = request.json()
@@ -33,6 +33,16 @@ def translate_en_to_de(data):
     return translated
 
 def translate_de_to_en(data):
+
+    path = '/translate'
+    constructed_url = endpoint + path
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': "westeurope",
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
 
     params_to_en = {
         'api-version': '3.0',
