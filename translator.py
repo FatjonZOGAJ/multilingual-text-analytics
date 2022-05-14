@@ -3,17 +3,17 @@ import requests, uuid, json, os
 endpoint = os.environ["AZURE_TRANSLATION_ENDPOINT"]
 key = os.environ["AZURE_TRANSLATION_KEY"]
 
-path = '/translate'
-constructed_url = endpoint + path
+def translate_en_to_de(data, key, endpoint):
 
-headers = {
-    'Ocp-Apim-Subscription-Key': key,
-    'Ocp-Apim-Subscription-Region': "westeurope",
-    'Content-type': 'application/json',
-    'X-ClientTraceId': str(uuid.uuid4())
-}
+    path = '/translate'
+    constructed_url = endpoint + path
 
-def translate_en_to_de(data):
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': "westeurope",
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
 
     params_to_de = {
         'api-version': '3.0',
@@ -23,7 +23,7 @@ def translate_en_to_de(data):
 
     body_to_de = [{
     'text': data
-}]
+    }]
 
     request = requests.post(constructed_url, params=params_to_de, headers=headers, json=body_to_de)
     response = request.json()
@@ -32,7 +32,17 @@ def translate_en_to_de(data):
     translated = response[0]['translations'][0]['text']
     return translated
 
-def translate_de_to_en(data):
+def translate_de_to_en(data, key, endpoint):
+
+    path = '/translate'
+    constructed_url = endpoint + path
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': "westeurope",
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
 
     params_to_en = {
         'api-version': '3.0',
@@ -54,10 +64,10 @@ def translate_de_to_en(data):
 
 # To use on a list, call method on every list item
 en_data = 'The extractive summarization feature uses natural language processing techniques to locate key sentences in an unstructured text document.'
-print(translate_en_to_de(en_data))
+print(translate_en_to_de(en_data, key, endpoint))
 
 de_data = 'Die extraktive Zusammenfassungsfunktion verwendet Techniken zur Verarbeitung natürlicher Sprache, um Schlüsselsätze in einem unstrukturierten Textdokument zu finden.'
-print(translate_de_to_en(de_data))
+print(translate_de_to_en(de_data, key, endpoint))
 
 ## Translate these sentences
 document = [
@@ -70,7 +80,7 @@ document = [
 
 ## Document for us can be a collection of paragraphs, currently only one entry
 for value in document:
-    print(translate_en_to_de(value))
+    print(translate_en_to_de(value, key, endpoint))
 
 ## Tests on medical data:
 data_path = "translation_data/de-en_txt_data/"
@@ -79,7 +89,7 @@ file_de = "german_data.txt"
 
 file_eng = open(data_path+"english_data.txt", 'r')
 for count, line in enumerate(file_eng.readlines()):
-    print(translate_en_to_de(line))
+    print(translate_en_to_de(line, key, endpoint))
     if count==2:
         break
 
