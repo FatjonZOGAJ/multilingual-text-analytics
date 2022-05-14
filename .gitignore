@@ -130,3 +130,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Zip files 
+*.zip 
+*.gz
+*.tmx
+*.en
+*.de
+
+# Mac useless file
+.DS_*
