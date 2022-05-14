@@ -24,46 +24,67 @@ USAGE:
     2) AZURE_LANGUAGE_KEY - your Language subscription key
 """
 
+import os
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.textanalytics import TextAnalyticsClient, HealthcareEntityRelation
 
-def sample_analyze_healthcare_entities():
+endpoint = os.environ["AZURE_LANGUAGE_ENDPOINT"]
+key = os.environ["AZURE_LANGUAGE_KEY"]
 
-    print(
-        "In this sample we will be combing through the prescriptions our pharmacy has fulfilled "
-        "so we can catalog how much inventory we have"
-    )
-    print(
-        "We start out with a list of prescription documents."
-    )
+text_analytics_client = TextAnalyticsClient(
+    endpoint=endpoint,
+    credential=AzureKeyCredential(key),
+)
+
+documents = [
+    """
+    Patient needs to take 100 mg of ibuprofen, and 3 mg of potassium. Also needs to take
+    10 mg of Zocor.
+    """,
+    """
+    Patient needs to take 50 mg of ibuprofen, and 2 mg of Coumadin.
+    """
+]
+
+
+documents_de = [
+    """
+    Patient muss 100 mg Ibuprofen, und 3 mg Kalium einnehmen. Ebenfalls muss er
+    10 mg Zocor einnehmen.
+    """,
+    """
+    Patient muss 50 Ibuprofen, und 2 mg Coumadin einnehmen.
+    """
+]
+
+# 
+# https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/language-detection/language-support
+def sample_analyze_healthcare_entities(documents, return_docs=False, translated_lang='en'):
+
+    #print(
+    #    "In this sample we will be combing through the prescriptions our pharmacy has fulfilled "
+    #    "so we can catalog how much inventory we have"
+    #)
+    #print(
+    #    "We start out with a list of prescription documents."
+    #)
 
     # [START analyze_healthcare_entities]
-    import os
-    from azure.core.credentials import AzureKeyCredential
-    from azure.ai.textanalytics import TextAnalyticsClient, HealthcareEntityRelation
 
-    endpoint = os.environ["AZURE_LANGUAGE_ENDPOINT"]
-    key = os.environ["AZURE_LANGUAGE_KEY"]
+    if translated_lang != 'en':
+        docs = text_analytics_client.recognize_entities(documents, language=translated_lang)
+    else:
+        poller = text_analytics_client.begin_analyze_healthcare_entities(documents, language=translated_lang)
+        result = poller.result()
+        docs = [doc for doc in result if not doc.is_error]
 
-    text_analytics_client = TextAnalyticsClient(
-        endpoint=endpoint,
-        credential=AzureKeyCredential(key),
-    )
 
-    documents = [
-        """
-        Patient needs to take 100 mg of ibuprofen, and 3 mg of potassium. Also needs to take
-        10 mg of Zocor.
-        """,
-        """
-        Patient needs to take 50 mg of ibuprofen, and 2 mg of Coumadin.
-        """
-    ]
-
-    poller = text_analytics_client.begin_analyze_healthcare_entities(documents)
-    result = poller.result()
-
-    docs = [doc for doc in result if not doc.is_error]
-
-    print("Let's first visualize the outputted healthcare result:")
+    if return_docs:
+        return {
+            'entities': [doc['entities'] for doc in docs],
+            'entity_relations': [doc['entity_relations'] for doc in docs if hasattr(doc, 'entity_relations')],
+        }
+    #print("Let's first visualize the outputted healthcare result:")
     for idx, doc in enumerate(docs):
         for entity in doc.entities:
             print(f"Entity: {entity.text}")
@@ -126,4 +147,8 @@ def sample_analyze_healthcare_entities():
 
 
 if __name__ == "__main__":
-    sample_analyze_healthcare_entities()
+    sample_analyze_healthcare_entities(return_docs=False, documents=documents)
+    print('_______________________________________________')
+    import pprint 
+    pp = pprint.PrettyPrinter(indent=2)
+    pp.pprint(sample_analyze_healthcare_entities(return_docs=True, documents=documents_de, translated_lang='de'))
