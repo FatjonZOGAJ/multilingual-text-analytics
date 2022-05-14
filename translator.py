@@ -29,9 +29,8 @@ def translate_en_to_de(data):
     response = request.json()
 
     # print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
-    # print(response[0]['translations'])
-    for value in response[0]['translations']:
-        print(value['text'])
+    translated = response[0]['translations'][0]['text']
+    return translated
 
 def translate_de_to_en(data):
 
@@ -47,18 +46,18 @@ def translate_de_to_en(data):
 
     request = requests.post(constructed_url, params=params_to_en, headers=headers, json=body_to_en)
     response = request.json()
-
+    
     # print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
-    for value in response[0]['translations']:
-        print(value['text'])
+    translated = response[0]['translations'][0]['text']
+    return translated
 
 
 # To use on a list, call method on every list item
 en_data = 'The extractive summarization feature uses natural language processing techniques to locate key sentences in an unstructured text document.'
-# translate_en_to_de(en_data)
+print(translate_en_to_de(en_data))
 
 de_data = 'Die extraktive Zusammenfassungsfunktion verwendet Techniken zur Verarbeitung natürlicher Sprache, um Schlüsselsätze in einem unstrukturierten Textdokument zu finden.'
-# translate_de_to_en(de_data)
+print(translate_de_to_en(de_data))
 
 ## Translate these sentences
 document = [
@@ -71,4 +70,24 @@ document = [
 
 ## Document for us can be a collection of paragraphs, currently only one entry
 for value in document:
-    translate_en_to_de(value)
+    print(translate_en_to_de(value))
+
+## Tests on medical data:
+data_path = "translation_data/de-en_txt_data/"
+file_de = "german_data.txt"
+
+
+file_eng = open(data_path+"english_data.txt", 'r')
+for count, line in enumerate(file_eng.readlines()):
+    print(translate_en_to_de(line))
+    if count==2:
+        break
+
+file_de = open(data_path+"german_data.txt", 'r')
+for count, line in enumerate(file_de.readlines()):
+    print(line)
+    if count==2:
+        break
+
+
+
