@@ -17,7 +17,7 @@ unzip -n \*.zip
 cd ..
 python3 -m venv mta
 deactivate
-source /mta/bin/activate
+source mta/bin/activate
 pip install azure-ai-textanalytics --pre
 
 export AZURE_LANGUAGE_ENDPOINT=https://datathon.cognitiveservices.azure.com/
