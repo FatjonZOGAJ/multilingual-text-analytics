@@ -1,12 +1,15 @@
-key = "abdeac0882324fb59b2cf327e84f783a"
-endpoint = "https://datathon.cognitiveservices.azure.com/"
 
 import json
+import os
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
 # Authenticate the client using your key and endpoint 
 def authenticate_client():
+
+    endpoint = os.environ["AZURE_LANGUAGE_ENDPOINT"]
+    key = os.environ["AZURE_LANGUAGE_KEY"]
+
     ta_credential = AzureKeyCredential(key)
     text_analytics_client = TextAnalyticsClient(
             endpoint=endpoint, 
