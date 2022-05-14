@@ -33,9 +33,7 @@ def translate_en_to_de(data):
     for value in response[0]['translations']:
         print(value['text'])
 
-
 def translate_de_to_en(data):
-
 
     params_to_en = {
         'api-version': '3.0',
@@ -71,5 +69,6 @@ document = [
         "It draws its strength from transfer learning across monolingual and harness the shared nature of languages to produce models of improved quality and efficiency. "
     ]
 
+## Document for us can be a collection of paragraphs, currently only one entry
 for value in document:
     translate_en_to_de(value)
