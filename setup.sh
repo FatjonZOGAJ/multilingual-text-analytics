@@ -21,7 +21,7 @@ source mta/bin/activate
 pip install azure-ai-textanalytics --pre
 
 export AZURE_LANGUAGE_ENDPOINT=https://datathon.cognitiveservices.azure.com/
-export AZURE_LANGUAGE_KEY=abdeac0882324fb59b2cf327e84f783a
+export AZURE_LANGUAGE_KEY=""
 
 export AZURE_TRANSLATION_ENDPOINT=https://api.cognitive.microsofttranslator.com/
-export AZURE_TRANSLATION_KEY=ed4486cc91334c13863a64530126be25
+export AZURE_TRANSLATION_KEY=""
