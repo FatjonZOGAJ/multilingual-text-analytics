@@ -22,9 +22,10 @@ Extends the original pipeline with an additional branch and compares the results
 
 ### Steps to run and reproduce
 
-### For setup, source our setup.sh script. This will create the environment and set the environment variables.
+### For setup, source our setup.sh script. 
+This will create the environment and set the environment variables.
 
-### Please install the dependencies from requirements.txt
+#### Please install the dependencies from requirements.txt
 
-### To run our complete pipeline, please run the Pipeline.ipynb file in notebooks/
-Our pipeline takes care of all function calls automcatically
+### To run our complete pipeline, 
+Please run the Pipeline.ipynb file in notebooks/. Our pipeline takes care of all function calls automcatically.
