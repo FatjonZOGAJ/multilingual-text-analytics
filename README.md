@@ -14,8 +14,8 @@ Extends the original pipeline with an additional branch and compares the results
 - [x] DE-EN Translation
 - [ ] EN Summarization
 - [ ] DE Summarization
-- [ ] EN Extractive Summary
-- [ ] DE Extractive Summary
-- [ ] EN NLP
-- [ ] EN-DE Entity translation
-- [ ] Entity Matching
+- [x] EN Extractive Summary
+- [x] DE Extractive Summary
+- [x] EN NLP
+- [x] EN-DE Entity translation
+- [x] Entity Matching
