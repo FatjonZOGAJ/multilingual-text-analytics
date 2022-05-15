@@ -12,10 +12,19 @@ Extends the original pipeline with an additional branch and compares the results
 ### Tasks
 - [x] EN-DE Translation
 - [x] DE-EN Translation
-- [ ] EN Summarization
-- [ ] DE Summarization
+- [x] EN Summarization
+- [x] DE Summarization
 - [x] EN Extractive Summary
 - [x] DE Extractive Summary
 - [x] EN NLP
 - [x] EN-DE Entity translation
 - [x] Entity Matching
+
+### Steps to run and reproduce
+
+### For setup, source our setup.sh script. This will create the environment and set the environment variables.
+
+### Please install the dependencies from requirements.txt
+
+### To run our complete pipeline, please run the Pipeline.ipynb file in notebooks/
+Our pipeline takes care of all function calls automcatically
