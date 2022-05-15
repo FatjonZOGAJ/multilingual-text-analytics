@@ -29,3 +29,5 @@ This will create the environment and set the environment variables.
 
 ### To run our complete pipeline, 
 Please run the Pipeline.ipynb file in notebooks/. Our pipeline takes care of all function calls automcatically.
+
+Enjoy!
