@@ -1,4 +1,23 @@
-# multilingual-text-analytics
+# No(t as much) Loss in Translation (NoLIT)
+
+### Problem:
+
+Doctors and patients might not share a common language.
+Diagnosis might be overwhelmingly long and confusing.
+
+### Goal:
+
+Make diagnosis accessible and understandable for patients.
+Improve their decision making.
+Optimise their treatment and recovery.
+
+### Solution:
+
+Shorter pipeline due to fewer translation steps
+Transfer learning based on  data augmentation leveraging extensive English medical data, translated using task specific pre-trained models 
+Evaluation confidence using a newly proposed EOP score enabling human-in-the-loop feedback
+
+
 
 ## Architecture
 ### Original Pipeline
